@@ -12,7 +12,8 @@ defmodule Sortimg do
       :world
 
   """
-  def hello do
-    :world
+  def get_files(directory) do
+    File.ls!(directory)
   end
+
 end
