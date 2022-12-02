@@ -1,7 +1,7 @@
 defmodule ImageSort do
   def main([dir | _]) do
-    dir
 
+    dir
        # dir/str -> [file1/str, file2/str, ....]
     |> get_files()
 
@@ -17,6 +17,25 @@ defmodule ImageSort do
     |> format_output()
 
     |> IO.puts()
+  end
+  def get_files2(directories, fucket) do
+    if Enum.empty?(directories) do
+      fucket
+    else
+      directory = hd(directories)
+      files_and_directories = File.ls!(directory)
+
+      {sub_directories, files} =
+        Enum.split_with(files_and_directories, fn file_or_directory ->
+          File.dir?(file_or_directory)
+        end)
+
+        # add sub_directories to bucket of directories
+
+      get_files2(sub_directories ++ tl(directories), fucket ++ files)
+
+
+    end
   end
 
   def get_files(directory) do
